@@ -1,7 +1,11 @@
-// for respective timeout action is called
+/**
+ * async Promise
+ *
+ * @return Object
+ */
 export function timeout(ms, promise) {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
       reject(new Error("timeout"));
     }, ms);
     promise.then(resolve, reject);

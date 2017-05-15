@@ -1,13 +1,21 @@
+/* =============================================================================
+   imports
+============================================================================= */
+/* npm */
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-//actions
-import { userStepOneSubmit } from '../actions/index'
+/* actions */
+import { userStepOneSubmit } from '../actions/index';
 
+/* styles */
 import '../style/app.scss';
 
-class UserInfo extends Component {
+/* =============================================================================
+   UserInfoFirst component
+============================================================================= */
+class UserInfoFirst extends Component {
 
   constructor(props) {
     super(props);
@@ -17,21 +25,41 @@ class UserInfo extends Component {
     }
   }
 
+  /**
+   * form submit after the successful validation
+   *
+   * @param  Object formData
+   * @return void
+   */
   onSubmit(formData) {
     this.props.userStepOneSubmit(formData);
-    browserHistory.push("/personal");
+    browserHistory.push("/sign-up");
   }
 
+  /**
+   * set the states on input change
+   *
+   * @param  Object event
+   * @return void
+   */
   onInputChange(e) {
     const fieldName = e.target.name;
     const value = e.target.value;
+
     if(fieldName === 'userName') {
+      /* userName input change */
       this.setState({ username: value });
     } else {
+      /* age input change */
       this.setState({ age: value });
     }
   }
 
+  /**
+   * render DOM
+   *
+   * @return Object
+   */
   render() {
 
     /* get redux form props */
@@ -70,6 +98,12 @@ class UserInfo extends Component {
   }
 }
 
+/**
+ * validate form
+ *
+ * @param  Object values
+ * @return Object error
+ */
 const validate = (values) => {
   const error = {};
 
@@ -90,16 +124,22 @@ const validate = (values) => {
   return error;
 }
 
-function mapStateToProps(state, ownProps) {
+/**
+ * maps states from redux to props for this component
+ *
+ * @param  Object state 
+ * @return Object initialValues
+ */
+function mapStateToProps(state) {
   return {
     'initialValues' : state.userData ? state.userData.userInfo : null,
   }
 }
 
 export default reduxForm({
-  'form': 'UserInfo',
+  'form': 'UserInfoFirst',
   'fields': [ 'userName', 'age' ],
   validate
 }, mapStateToProps, {
   userStepOneSubmit,
-})(UserInfo);
+})(UserInfoFirst);

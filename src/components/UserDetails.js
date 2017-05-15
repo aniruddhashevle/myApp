@@ -1,7 +1,14 @@
+/* =============================================================================
+   imports
+============================================================================= */
+/* npm */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
+/* =============================================================================
+   UserDetails component
+============================================================================= */
 class UserDetails extends Component {
 
   constructor(props) {
@@ -9,17 +16,32 @@ class UserDetails extends Component {
     this.userData = this.props.userAllInfo;
   }
 
+  /**
+   * before component is loaded
+   *
+   * @return void
+   */
   componentWillMount() {
     if(!this.userData || !this.userData.userName || !this.userData.age || !this.userData.dateOfBirth || !this.userData.gender) {
       browserHistory.push("/");
     }
   }
 
+  /**
+   * When a component is being removed from the DOM
+   *
+   * @return void
+   */
   componentWillUnmount() {
     this.userData = null;
     browserHistory.push("/");
   }
 
+  /**
+   * render DOM
+   *
+   * @return Object
+   */
   render() {    
     return (
       <div>
@@ -35,6 +57,12 @@ class UserDetails extends Component {
   }
 }
 
+/**
+ * maps states from redux to props for this component
+ *
+ * @param  Object state
+ * @return Object userAllInfo
+ */
 function mapStateToProps(state) {
 	return {
 		userAllInfo: state.userData.userAllInfo ? state.userData.userAllInfo : null

@@ -1,20 +1,28 @@
+/* =============================================================================
+   imports
+============================================================================= */
+/* npm */
 import React from 'react';
-import {render} from 'react-dom';
-import './style/app.scss';
-import routes from './routes/routes';
-
-
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
+import {render} from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
-// Reducers
-import reducers from './reducers/';
-
-// Middleware
+/* middleware */
 import ReduxThunk from 'redux-thunk';
 
+/* routes */
+import routes from './routes/routes';
+
+/* reducers */
+import reducers from './reducers/';
+
+/* styles */
+import './style/app.scss';
+
+/* =============================================================================
+   render DOM
+============================================================================= */
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 render(

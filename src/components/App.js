@@ -1,10 +1,17 @@
-import React from 'react';
-import { Component } from 'react';
+/* =============================================================================
+   imports
+============================================================================= */
+/* npm */
+import React, { Component } from 'react';
 
+/* =============================================================================
+   App component
+============================================================================= */
 class App extends Component {
   render() {
     return (
       <div>
+      	{/* allow child routes */}
         { this.props.children }
       </div>
     );

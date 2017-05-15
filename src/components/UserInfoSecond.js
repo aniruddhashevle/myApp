@@ -1,11 +1,20 @@
+/* =============================================================================
+   imports
+============================================================================= */
+/* npm */
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { browserHistory, Link } from 'react-router';
 
+/* actions */
 import { submitUserData, userStepOneSubmit } from '../actions/index';
 
+/* styles */
 import '../style/app.scss';
 
+/* =============================================================================
+   UserInfoSecond component
+============================================================================= */
 class UserInfoSecond extends Component {
  
   constructor(props) {
@@ -17,14 +26,27 @@ class UserInfoSecond extends Component {
     this.userFirstInfo = this.props.userData;
   }
 
+  /**
+   * before component is loaded
+   *
+   * @return void
+   */
   componentWillMount() {
+    /* if user step 1 form is not submited redirect to user step 1 */
     if(!this.userFirstInfo.userNameme && !this.userFirstInfo.age) {
       browserHistory.push("/");
     }
   }
 
+  /**
+   * form submit after the successful validation
+   *
+   * @param  Object props
+   * @return void
+   */
   onDataSubmit(props) {
 
+    /* if user step 1 form is not submited set state to show error msg */
     if(!this.userFirstInfo.userNameme && !this.userFirstInfo.age) {
       this.setState({
         isUserFirstInfoFilled: false
@@ -36,29 +58,41 @@ class UserInfoSecond extends Component {
       ...this.userFirstInfo,
       ...props,
     }
+
+    /* call action to submit user data */
     this.props.submitUserData(data).then(resp => {
       const formData = {
         userName: null,
         age: null
       }
 
+      /* set an empty data for the User Step 1 form in the reducer */
       this.props.userStepOneSubmit(formData);
+
       if(resp.status === 200) {
         browserHistory.push("/user-details");
       }
     });
   }
 
-  /* gives selected gender */
+  /**
+   * sets selected gender
+   *
+   * @param  Object event
+   * @return void
+   */
   handleChange(e) {
     this.setState({
       selectValue: e.target.value
     });
   }
 
-
+  /**
+   * render DOM
+   *
+   * @return Object
+   */
   render() {
-
     /* get redux form props */
     const {
       'fields': {
@@ -109,13 +143,12 @@ class UserInfoSecond extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    userData: state.userData.userInfo,
-    userAllInfo: state.userData.userAllInfo
-  }
-}
-
+/**
+ * validate form
+ *
+ * @param  Object values
+ * @return Object error
+ */
 const validate = values => {
   const error = {};
 
@@ -132,6 +165,19 @@ const validate = values => {
   }
 
   return error;
+}
+
+/**
+ * maps states from redux to props for this component
+ *
+ * @param  Object state
+ * @return Object userData, Object userAllInfo
+ */
+function mapStateToProps(state) {
+  return {
+    userData: state.userData.userInfo,
+    userAllInfo: state.userData.userAllInfo
+  }
 }
 
 export default reduxForm({
