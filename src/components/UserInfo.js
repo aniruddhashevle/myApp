@@ -23,8 +23,8 @@ class UserInfo extends Component {
   }
 
   onInputChange(e) {
-    let fieldName = e.target.name;
-    let value = e.target.value;
+    const fieldName = e.target.name;
+    const value = e.target.value;
     if(fieldName === 'userName') {
       this.setState({ username: value });
     } else {
@@ -71,21 +71,23 @@ class UserInfo extends Component {
 }
 
 const validate = (values) => {
-  const error = {}
+  const error = {};
 
+  /* Username validation */
 	if (!values.userName) {
-    error.userName = 'Required'
+    error.userName = 'Username is required';
   }
 
+  /* Age validation */
   if (!values.age) {
-    error.age = 'Required'
+    error.age = 'Age is required';
   } else if ((values.age && isNaN(Number(values.age)))) {
-    error.age = 'Must be a number'
+    error.age = 'Age must be a number';
   } else if (Number(values.age) < 0 || Number(values.age) > 150) {
-    error.age = 'Sorry, invalid age value'
+    error.age = 'Sorry, invalid Age value';
   }
 
-  return error
+  return error;
 }
 
 function mapStateToProps(state, ownProps) {

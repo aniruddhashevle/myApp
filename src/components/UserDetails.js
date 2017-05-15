@@ -1,14 +1,35 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class UserDetails extends Component {
 
-  render() {
-  	console.log('userAllInfo', this.props.userAllInfo);
+  constructor(props) {
+    super(props);
+    this.userData = this.props.userAllInfo;
+  }
+
+  componentWillMount() {
+    if(!this.userData || !this.userData.userName || !this.userData.age || !this.userData.dateOfBirth || !this.userData.gender) {
+      browserHistory.push("/");
+    }
+  }
+
+  componentWillUnmount() {
+    this.userData = null;
+    browserHistory.push("/");
+  }
+
+  render() {    
     return (
       <div>
-        { this.props.userAllInfo ? this.props.userAllInfo : null }
+        <h1>User:</h1>
+        <ul>
+          <li>Username: {this.userData ? this.userData.userName : null}</li>
+          <li>Age: {this.userData ? this.userData.age : null}</li>
+          <li>Date Of Birth: {this.userData ? this.userData.dateOfBirth : null}</li>
+          <li>Gender: {this.userData ? this.userData.gender : null}</li>
+        </ul>
       </div>
     );
   }

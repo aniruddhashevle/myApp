@@ -11,23 +11,38 @@ class UserInfoSecond extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectValue: 'Select Gender'
+      selectValue: 'Select Gender',
+      isUserFirstInfoFilled: true
+    }
+    this.userFirstInfo = this.props.userData;
+  }
+
+  componentWillMount() {
+    if(!this.userFirstInfo.userNameme && !this.userFirstInfo.age) {
+      browserHistory.push("/");
     }
   }
 
   onDataSubmit(props) {
-    const data = {
-      ...this.props.userData,
-      ...props,
-    }
-    this.props.submitUserData(data);
-    const formData = {
-      userName: null,
-      age: null
+
+    if(!this.userFirstInfo.userNameme && !this.userFirstInfo.age) {
+      this.setState({
+        isUserFirstInfoFilled: false
+      });
+      return false;
     }
 
-    this.props.userStepOneSubmit(formData).then(resp => {
-      console.log('resp in', resp);
+    const data = {
+      ...this.userFirstInfo,
+      ...props,
+    }
+    this.props.submitUserData(data).then(resp => {
+      const formData = {
+        userName: null,
+        age: null
+      }
+
+      this.props.userStepOneSubmit(formData);
       if(resp.status === 200) {
         browserHistory.push("/user-details");
       }
@@ -57,6 +72,11 @@ class UserInfoSecond extends Component {
       <div className="container">
         <div className="wrapper">
           <h1>Step 2</h1>
+          {
+            !this.state.isUserFirstInfoFilled ?
+            <p>Please fill previous info</p>
+            : null
+          }
           <form onSubmit={handleSubmit(this.onDataSubmit.bind(this))}>
             <div className={`form-group ${dateOfBirth.touched && dateOfBirth.invalid ? 'has-error' : '' }`}>
               <input type="date" className="form-control" placeholder="user name" {...dateOfBirth}/>
@@ -90,7 +110,6 @@ class UserInfoSecond extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state',state);
   return {
     userData: state.userData.userInfo,
     userAllInfo: state.userData.userAllInfo
@@ -98,19 +117,21 @@ function mapStateToProps(state) {
 }
 
 const validate = values => {
-  const error = {}
+  const error = {};
 
+  /* Date Of Birth validation */
   if (!values.dateOfBirth) {
-    error.dateOfBirth = 'Required'
+    error.dateOfBirth = 'Date Of Birth is required';
   } else if (new Date(values.dateOfBirth) > new Date()) {
-    error.dateOfBirth = 'Invalid date of birth'
+    error.dateOfBirth = 'Invalid Date Of Birth';
   }
 
+  /* Gender validation */
   if (!values.gender || values.gender === 'Select Gender') {
-    error.gender = 'Required'
+    error.gender = 'Gender is required';
   }
 
-  return error
+  return error;
 }
 
 export default reduxForm({

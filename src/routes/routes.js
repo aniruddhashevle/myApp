@@ -4,27 +4,11 @@ import UserInfo from '../components/UserInfo';
 import UserDetails from '../components/UserDetails';
 
 import React from 'react';
-import {IndexRoute, Route, Redirect} from 'react-router';
+import { IndexRoute, Route } from 'react-router';
 
 // /////////////////////////////////////////////////////////////////////////////
 // Root Route Object
 // /////////////////////////////////////////////////////////////////////////////
-
-// const rootRoute = {
-// 	'path': '/',
-// 	'component': App,
-// 	'childRoutes': [
-// 		{
-// 			'path': '/personal',
-// 			getComponent(location, cb) {
-// 			  require.ensure([], (require) => {
-// 			    cb(null, require('../components/UserInfoSecond').default);
-// 			  }, 'user-data');
-// 			}
-// 		},
-// 	]
-// }
-
 const rootRoute = (
   <Route path="/" component={App} >
 
