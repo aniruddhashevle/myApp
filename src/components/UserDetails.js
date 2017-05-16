@@ -48,7 +48,7 @@ class UserDetails extends Component {
         <div className="wrapper">
           <div className="col-xs-11 col-sm-5 align-center horizontal-center">
             <h1>User:</h1>
-            <ul className="user-list">
+            <ul className="user-details-list">
               <li className="user-list-item"><span className="user-fields">Username:</span> {this.userData ? this.userData.userName : null}</li>
               <li className="user-list-item"><span className="user-fields">Age:</span> {this.userData ? this.userData.age : null}</li>
               <li className="user-list-item"><span className="user-fields">Date Of Birth:</span> {this.userData ? this.userData.dateOfBirth : null}</li>

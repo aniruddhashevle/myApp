@@ -117,7 +117,7 @@ class UserInfoSecond extends Component {
                 </div>
               </div>
               <div className={`form-group gender-select-arrow ${gender.touched && gender.invalid ? 'has-error' : '' }`}>
-                <select className="selectpicker gender-select form-control"
+                <select className="gender-select form-control"
                   value={this.state.selectValue}
                   onChange={this.handleChange.bind(this)}
                   { ...gender } >
