@@ -9,9 +9,6 @@ import { browserHistory, Link } from 'react-router';
 /* actions */
 import { submitUserData, userStepOneSubmit } from '../actions/index';
 
-/* styles */
-import '../style/app.scss';
-
 /* =============================================================================
    UserInfoSecond component
 ============================================================================= */
@@ -105,37 +102,40 @@ class UserInfoSecond extends Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <h1>Step 2</h1>
-          {
-            !this.state.isUserFirstInfoFilled ?
-            <p>Please fill previous info</p>
-            : null
-          }
-          <form onSubmit={handleSubmit(this.onDataSubmit.bind(this))}>
-            <div className={`form-group ${dateOfBirth.touched && dateOfBirth.invalid ? 'has-error' : '' }`}>
-              <input type="date" className="form-control" placeholder="user name" {...dateOfBirth}/>
-              <div className="error-text text-help error_data">
-                {dateOfBirth.touched ? dateOfBirth.error : ''}
+          <div className="col-xs-12 col-sm-6 align-center">
+            <h1>Step 2</h1>
+            {
+              !this.state.isUserFirstInfoFilled ?
+              <p>Please fill previous info</p>
+              : null
+            }
+            <form onSubmit={handleSubmit(this.onDataSubmit.bind(this))}>
+              <div className={`form-group ${dateOfBirth.touched && dateOfBirth.invalid ? 'has-error' : '' }`}>
+                <input type="date" className="form-control" {...dateOfBirth} placeholder="Date Of Birth" />
+                <div className="error-text text-help error_data">
+                  {dateOfBirth.touched ? dateOfBirth.error : ''}
+                </div>
               </div>
-            </div>
-            <div className={`form-group ${gender.touched && gender.invalid ? 'has-error' : '' }`}>
-              <select className="profile-select"
-                value={this.state.selectValue}
-                onChange={this.handleChange.bind(this)} { ...gender } >
-                <option>Select Gender</option>
-                <option value="male">male</option>
-                <option value="female">female</option>
-              </select>
-              <div className="error-text text-help error_data">
-                {gender.touched ? gender.error : ''}
+              <div className={`form-group gender-select-arrow ${gender.touched && gender.invalid ? 'has-error' : '' }`}>
+                <select className="selectpicker gender-select form-control"
+                  value={this.state.selectValue}
+                  onChange={this.handleChange.bind(this)}
+                  { ...gender } >
+                  <option>Select Gender</option>
+                  <option value="male">male</option>
+                  <option value="female">female</option>
+                </select>
+                <div className="error-text text-help error_data">
+                  {gender.touched ? gender.error : ''}
+                </div>
               </div>
+              <div className="form-group form-btn">
+                <button className="text-uppercase btn-common btn btn-primary btn-responsive" type="submit">Submit</button>
+              </div>
+            </form>
+            <div className="horizontal-center">
+              <Link to="/" className="link-step-one">Go back to the "step 1"</Link>
             </div>
-            <div className="form-group">
-              <button className="text-uppercase btn btn-block btn-responsive" type="submit">Submit</button>
-            </div>
-          </form>
-          <div>
-            <Link to="/">Go back to step 1</Link>
           </div>
         </div>
       </div>

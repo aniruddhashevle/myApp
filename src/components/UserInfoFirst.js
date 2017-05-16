@@ -9,9 +9,6 @@ import { browserHistory } from 'react-router';
 /* actions */
 import { userStepOneSubmit } from '../actions/index';
 
-/* styles */
-import '../style/app.scss';
-
 /* =============================================================================
    UserInfoFirst component
 ============================================================================= */
@@ -74,24 +71,26 @@ class UserInfoFirst extends Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <h1>Step 1</h1>
-          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <div className={`form-group ${userName.touched && userName.invalid ? 'has-error' : '' }`}>
-              <input type="text" className="form-control" placeholder="user name" {...userName} value={this.state.username} onChange={this.onInputChange.bind(this)}/>
-              <div className="error-text text-help error_data">
-                {userName.touched ? userName.error : ''}
+          <div className="col-xs-12 col-sm-6 align-center">
+            <h1>Step 1</h1>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+              <div className={`form-group ${userName.touched && userName.invalid ? 'has-error' : '' }`}>
+                <input type="text" className="form-control" placeholder="Username" {...userName} value={this.state.username} onChange={this.onInputChange.bind(this)}/>
+                <div className="error-text text-help error_data">
+                  {userName.touched ? userName.error : ''}
+                </div>
               </div>
-            </div>
-            <div className={`form-group ${age.touched && age.invalid ? 'has-error' : '' }`}>
-              <input type="number" className="form-control" placeholder="age" {...age} value={this.state.age} onChange={this.onInputChange.bind(this)}/>
-              <div className="error-text text-help error_data">
-                {age.touched ? age.error : ''}
+              <div className={`form-group ${age.touched && age.invalid ? 'has-error' : '' }`}>
+                <input type="number" className="form-control" placeholder="Age" {...age} value={this.state.age} onChange={this.onInputChange.bind(this)}/>
+                <div className="error-text text-help error_data">
+                  {age.touched ? age.error : ''}
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <button className="text-uppercase btn btn-block btn-responsive" type="submit">Next</button>
-            </div>
-          </form>
+              <div className="form-group form-btn">
+                <button className="text-uppercase btn-common btn btn-primary btn-responsive" type="submit">Next</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     );

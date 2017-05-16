@@ -42,16 +42,20 @@ class UserDetails extends Component {
    *
    * @return Object
    */
-  render() {    
+  render() {
     return (
-      <div>
-        <h1>User:</h1>
-        <ul>
-          <li>Username: {this.userData ? this.userData.userName : null}</li>
-          <li>Age: {this.userData ? this.userData.age : null}</li>
-          <li>Date Of Birth: {this.userData ? this.userData.dateOfBirth : null}</li>
-          <li>Gender: {this.userData ? this.userData.gender : null}</li>
-        </ul>
+      <div className="container">
+        <div className="wrapper">
+          <div className="col-xs-12 col-sm-6 align-center horizontal-center">
+            <h1>User:</h1>
+            <ul className="user-list">
+              <li className="user-list-item"><span className="user-fields">Username:</span> {this.userData ? this.userData.userName : null}</li>
+              <li className="user-list-item"><span className="user-fields">Age:</span> {this.userData ? this.userData.age : null}</li>
+              <li className="user-list-item"><span className="user-fields">Date Of Birth:</span> {this.userData ? this.userData.dateOfBirth : null}</li>
+              <li className="user-list-item"><span className="user-fields">Gender:</span> {this.userData ? this.userData.gender : null}</li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }

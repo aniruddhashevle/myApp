@@ -18,7 +18,10 @@ import routes from './routes/routes';
 import reducers from './reducers/';
 
 /* styles */
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-theme.min.css';
 import './style/app.scss';
+// import './style/app.css';
 
 /* =============================================================================
    render DOM
