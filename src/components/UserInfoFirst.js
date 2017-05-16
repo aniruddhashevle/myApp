@@ -71,7 +71,7 @@ class UserInfoFirst extends Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <div className="col-xs-12 col-sm-6 align-center">
+          <div className="col-xs-11 col-sm-5 align-center">
             <h1>Step 1</h1>
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
               <div className={`form-group ${userName.touched && userName.invalid ? 'has-error' : '' }`}>
@@ -117,7 +117,7 @@ const validate = (values) => {
   } else if ((values.age && isNaN(Number(values.age)))) {
     error.age = 'Age must be a number';
   } else if (Number(values.age) < 0 || Number(values.age) > 150) {
-    error.age = 'Sorry, invalid Age value';
+    error.age = 'Please enter a valid Age value';
   }
 
   return error;

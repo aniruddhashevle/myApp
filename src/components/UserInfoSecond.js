@@ -102,7 +102,7 @@ class UserInfoSecond extends Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <div className="col-xs-12 col-sm-6 align-center">
+          <div className="col-xs-11 col-sm-5 align-center">
             <h1>Step 2</h1>
             {
               !this.state.isUserFirstInfoFilled ?
@@ -149,18 +149,39 @@ class UserInfoSecond extends Component {
  * @param  Object values
  * @return Object error
  */
-const validate = values => {
+const validate = (values, state) => {
   const error = {};
+  /* get full Date */
+  const currentDate = new Date();
+  const userDateOfBirth = new Date(values.dateOfBirth);
+  /* get years */
+  const currentDateYear = currentDate.getFullYear();
+  const userDateOfBirthYear = userDateOfBirth.getFullYear();
+  /* get dates */
+  const currentDateOfMonth = currentDate.getDate();
+  const userDateOfBirthOfMonth = userDateOfBirth.getDate();
+  /* get months */
+  const currentDateMonth = currentDate.getMonth();
+  const userDateOfBirthMonth = userDateOfBirth.getMonth();
+  /* user filled age */
+  const userAge = state.userData.age;
+  const yearDiff = currentDateYear - userDateOfBirthYear;
 
-  /* Date Of Birth validation */
-  if (!values.dateOfBirth) {
+  /* Date Of Birth validation with respect to age */
+  if(!values.dateOfBirth) {
     error.dateOfBirth = 'Date Of Birth is required';
-  } else if (new Date(values.dateOfBirth) > new Date()) {
+  } else if(currentDate < userDateOfBirth) {
     error.dateOfBirth = 'Invalid Date Of Birth';
+  } else if(yearDiff !== userAge) {
+    error.dateOfBirth = 'Does not match the Year with your Age';
+  } else if(currentDateMonth < userDateOfBirthMonth) {
+    error.dateOfBirth = 'Does not match the Month with your Age';
+  } else if(currentDateOfMonth < userDateOfBirthOfMonth) {
+    error.dateOfBirth = 'Does not match the Date with your Age';
   }
 
   /* Gender validation */
-  if (!values.gender || values.gender === 'Select Gender') {
+  if(!values.gender || values.gender === 'Select Gender') {
     error.gender = 'Gender is required';
   }
 

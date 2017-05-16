@@ -5,6 +5,7 @@
 import axios from 'axios';
 
 /* common functions */
+// timeout function returns a Promise
 import { timeout } from '../utils/common';
 
 /* Common action and reducer variables */
@@ -37,7 +38,7 @@ export function userStepOneSubmit(data) {
 export function reqSignUp() {
 	return {
 		type: SIGN_UP_REQ,
-		isFetching: true		
+		isFetching: true
 	}
 }
 
@@ -90,6 +91,6 @@ export function submitUserData(userInfo) {
 		    }
 
 		    return err;
-		 });
+		});
 	};
 }
